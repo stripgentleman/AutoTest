@@ -2,7 +2,6 @@ import zipfile
 import json
 import os
 
-
 class XmindAnalyst:
 
     def analysis(self, case_path, case_name):
@@ -28,11 +27,14 @@ class XmindAnalyst:
         return xmind_dicts
 
     @staticmethod
-    def dfs_class_info(xmind_dict, class_list=None):
-        if not class_list:
-            class_list = list([])
-        if 'children' in xmind_dict:
-            class_list.append(xmind_dict['id'])
+    def get_info_from_dict(xmind_dict:dict):
+        class_lists = list([])
+        root_class = xmind_dict.get('rootTopic')
+        class_stack = list([])
+        if root_class:
+
+
+
 
     @staticmethod
     def import_test():
