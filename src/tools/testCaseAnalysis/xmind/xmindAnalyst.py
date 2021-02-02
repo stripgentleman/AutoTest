@@ -31,7 +31,7 @@ class XmindAnalyst:
         class_lists = list([])
         root_class = xmind_dict.get('rootTopic')
         class_stack = list([])
-        if root_class:
+        # if root_class:
 
 
 
