@@ -3,4 +3,10 @@
 
 class AbstractAnalyst:
 
-    def json_result2method_lists(self, ):
+    @staticmethod
+    def json_result2method_lists(json_result:dict):
+        pass
+
+    @staticmethod
+    def analysis(case_path, case_name):
+        pass

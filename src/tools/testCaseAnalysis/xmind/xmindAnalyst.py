@@ -2,7 +2,11 @@ import zipfile
 import json
 import os
 
-class XmindAnalyst:
+
+from ..abstractAnalyst import AbstractAnalyst
+
+
+class XmindAnalyst(AbstractAnalyst):
 
     def analysis(self, case_path, case_name):
         case_path = case_path if case_path[-1] == '\\' or case_path[-1] == '/' else case_path + '/'
@@ -27,13 +31,16 @@ class XmindAnalyst:
         return xmind_dicts
 
     @staticmethod
-    def get_info_from_dict(xmind_dict:dict):
+    def json_result2method_lists(json_result:dict):
         class_lists = list([])
-        root_class = xmind_dict.get('rootTopic')
+        root_class = json_result.get('rootTopic')
         class_stack = list([])
-        # if root_class:
+        # if root_class is not None:
 
+    # def
 
+    # @staticmethod
+    # def check_children()->bool:
 
 
     @staticmethod

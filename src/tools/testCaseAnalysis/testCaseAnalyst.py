@@ -13,7 +13,7 @@ class TestCaseAnalyst:
 
     def __init__(self):
         self.type_analyst = {
-            # .后缀名:解析类的包路径.类名.方法名-----------------默认情况下该方法需有且仅有case_name参数
+            # .后缀名:解析类的包路径.类名.方法名-----------------默认情况下该方法需有且仅有case_path和case_name参数
             '.xmind': 'src.tools.testCaseAnalysis.xmind.xmindAnalyst.XmindAnalyst.analysis',
             '.excel': '',
         }
@@ -50,7 +50,7 @@ class TestCaseAnalyst:
                 analyst_object = getattr(analyst_module, module_path[-2])
                 analyst_method = getattr(analyst_object(), module_path[-1])
                 for case_name in self.test_case_dict[case_path][case_postfix]:
-                    analysis_result = analyst_method(case_name)
+                    analysis_result = analyst_method(case_path, case_name)
 
 
 
