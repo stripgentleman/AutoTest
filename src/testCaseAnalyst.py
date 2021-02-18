@@ -1,6 +1,6 @@
 import os
 import re
-import inspect
+
 from importlib import import_module
 
 from src.config import testCaseConfig

@@ -1,9 +1,9 @@
 #############################################
 # 测试用例配置信息
 #############################################
-#   测试用例存放路径,相对于src/tools/testCaseAnalyst.py的路径
+#   测试用例存放路径,相对于src/testCaseAnalyst.py的路径
 test_case_path = [
-    '../../../testCase',
+    '../testCase',
 ]
 
 #   测试用例文件后缀，每种后缀文件的解析方法在src/tools/testCaseAnalyst.py中映射
