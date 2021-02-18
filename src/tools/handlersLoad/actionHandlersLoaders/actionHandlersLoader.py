@@ -1,4 +1,5 @@
 from importlib import import_module
+import inspect
 
 import src.config.actionHandleConfig as Config
 
@@ -24,5 +25,9 @@ if __name__ == '__main__':
     aa = ActionHandlersLoader.load()
 
     print(aa)
-    aa['test'](32131)
+    aa['test'](32,13,1)
+
+    ap = inspect.signature(aa['test'])
+    print(list(ap.parameters))
+
 
