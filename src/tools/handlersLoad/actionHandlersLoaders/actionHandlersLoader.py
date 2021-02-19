@@ -8,7 +8,6 @@ class ActionHandlersLoader:
 
     @staticmethod
     def load(tag=None):
-        print('load')
         methods_dict = dict()
         ac_methods = ActionHandlersLoader.ac_methods
         if tag is None:
