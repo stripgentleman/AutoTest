@@ -1,6 +1,7 @@
 import inspect
 
 from src.tools.handlersLoad.actionHandlersLoaders.actionHandlersLoader import ActionHandlersLoader
+from src.tools.handlersLoad.assertionHandlersLoaders.assertionHandlersLoader import AssertionHandlersLoader
 
 
 class HandlersLoader:
@@ -31,14 +32,16 @@ class HandlersLoader:
     def tag_call_method(action_assertion, tag, args_dict: dict):
         if action_assertion == HandlersLoader.ACTION:
             load_method = HandlersLoader.load_action_method
+            load = ActionHandlersLoader.load
         elif action_assertion == HandlersLoader.ASSERTION:
             load_method = HandlersLoader.load_assertion_method
+            load = AssertionHandlersLoader.load
         else:
             error_msg = ''.join(['HandlersLoader.tag_call_method() get error action_assertion value : ',
                                  action_assertion, ' , it only required \'', HandlersLoader.ACTION, '\' or \'', HandlersLoader.ASSERTION, '\''])
             raise TypeError(error_msg)
         if load_method.get(tag) is None:
-            load_method[tag] = ActionHandlersLoader.load(tag)
+            load_method[tag] = load(tag)
         HandlersLoader.method_call(load_method[tag], args_dict)
 
 
