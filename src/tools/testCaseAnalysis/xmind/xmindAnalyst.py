@@ -31,9 +31,9 @@ class XmindAnalyst(AbstractAnalyst):
         return xmind_dicts
 
     @staticmethod
-    def json_result2method_lists(json_result:dict):
+    def method_lists_from_dict(json_dict:dict):
         class_lists = list([])
-        root_class = json_result.get('rootTopic')
+        root_class = json_dict.get('rootTopic')
         class_stack = list([])
         # if root_class is not None:
 
