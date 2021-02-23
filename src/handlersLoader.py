@@ -48,6 +48,6 @@ class HandlersLoader:
 if __name__ == '__main__':
     # HandlersLoader.method_call(tes, {'aaa': 222, 'bbb':321321})
     HandlersLoader.tag_call_method('action', 'test', {'param1':111, 'param2':111, 'param3':111})
-    HandlersLoader.tag_call_method('action', 'test', {'param1': 151, 'param2': 1771, 'param3': 121})
+    HandlersLoader.tag_call_method('assertion', 'test', {'param1': 151, 'param2': 1771, 'param3': 121})
     HandlersLoader.tag_call_method('action', 'test', {'param1': 311, 'param2': 511, 'param3': 131})
     HandlersLoader.tag_call_method('action', 'test', {'param3': 111, 'param1': 151, 'param2': 141})
