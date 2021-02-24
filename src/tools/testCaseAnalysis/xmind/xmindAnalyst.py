@@ -42,8 +42,10 @@ class XmindAnalyst(AbstractAnalyst):
 
     # def
 
-    # @staticmethod
-    # def check_children()->bool:
+    @staticmethod
+    def check_children(check_dict: dict) -> bool:
+        return 'children' in check_dict.keys()
+
     @staticmethod
     def load_point(dict_str: str):
         return json.loads(dict_str)
@@ -53,10 +55,10 @@ class XmindAnalyst(AbstractAnalyst):
         id_left_index = dict_str.find('\'id\': \'' + point_id)
         if id_left_index == -1:
             return ''
-        left_brace_index = id_left_index-1
+        left_brace_index = id_left_index - 1
         ignore_flag = False
         while (dict_str[left_brace_index] != '{' and left_brace_index >= 0) or ignore_flag:
-            if dict_str[left_brace_index] == '\'' and dict_str[left_brace_index-1] != '\\':
+            if dict_str[left_brace_index] == '\'' and dict_str[left_brace_index - 1] != '\\':
                 ignore_flag = not ignore_flag
             left_brace_index -= 1
         if left_brace_index < 0:
@@ -67,7 +69,7 @@ class XmindAnalyst(AbstractAnalyst):
         while right_brace_index < len(dict_str):
             if right_flag == 0:
                 break
-            if dict_str[right_brace_index] == '\'' and dict_str[right_brace_index-1] != '\\':
+            if dict_str[right_brace_index] == '\'' and dict_str[right_brace_index - 1] != '\\':
                 ignore_flag = not ignore_flag
                 right_brace_index += 1
                 continue
@@ -100,4 +102,3 @@ class XmindAnalyst(AbstractAnalyst):
 if __name__ == '__main__':
     aa = XmindAnalyst()
     aa.analysis('..\\..\\..\\..\\testCase', 'test1.xmind')
-
