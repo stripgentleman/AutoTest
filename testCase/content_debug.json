@@ -81,7 +81,28 @@
                     "attached": [
                       {
                         "id": "657b1f57-2ceb-4fa0-86b6-a94bc9e2669e",
-                        "title": "子主题 1"
+                        "title": "子主题 1",
+                        "children": {
+                          "attached": [
+                            {
+                              "id": "1ceaa52d-f825-48ee-bcbd-74d0e7167d55",
+                              "title": "子主题 1"
+                            }
+                          ],
+                          "summary": [
+                            {
+                              "title": "概要",
+                              "id": "f2351cb3-b150-47da-91d3-245a78f5560c"
+                            }
+                          ]
+                        },
+                        "summaries": [
+                          {
+                            "id": "e1898d63-aa79-42c4-bc65-0e47956ec54f",
+                            "range": "(0,0)",
+                            "topicId": "f2351cb3-b150-47da-91d3-245a78f5560c"
+                          }
+                        ]
                       },
                       {
                         "id": "ee7e6f2a-5b8f-4511-857c-d034716aa86e",
@@ -91,6 +112,10 @@
                         "title": "子主题 3",
                         "titleUnedited": true,
                         "id": "2c202608-4fd7-47b4-8c34-a8a2ecb62e7d"
+                      },
+                      {
+                        "id": "55c94569-9649-438b-8cbf-72f3f983ba05",
+                        "title": "子主题 4"
                       }
                     ]
                   },

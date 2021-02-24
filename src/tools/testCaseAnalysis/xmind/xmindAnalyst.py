@@ -2,8 +2,7 @@ import zipfile
 import json
 import os
 
-
-from ..abstractAnalyst import AbstractAnalyst
+from src.tools.testCaseAnalysis.abstractAnalyst import AbstractAnalyst
 
 
 class XmindAnalyst(AbstractAnalyst):
@@ -31,22 +30,44 @@ class XmindAnalyst(AbstractAnalyst):
         return xmind_dicts
 
     @staticmethod
-    def method_lists_from_dict(json_dict:dict):
+    def method_lists_from_dict(json_dict: dict):
         class_lists = list([])
         root_class = json_dict.get('rootTopic')
         class_stack = list([])
-        # if root_class is not None:
+        if root_class is None:
+            return None
+
 
     # def
 
     # @staticmethod
     # def check_children()->bool:
 
+    @staticmethod
+    def goto_final_point(dict_info: dict, list_info: list):
+        current_point = dict_info
+        current_children = None
+        final_point = None
+        for point in list_info:
+            current_children = current_point.get('children')
+            if current_point is None:
+                return None
+            current_attached = current_children.get('attached')
+            if current_point is None:
+                return None
+            if point in current_attached:
+                for children_point in current_attached:
+                    if children_point.get('id') == point:
+                        current_point = children_point
+                    # else:
+
+
+
+        return current_point
 
     @staticmethod
     def import_test():
         print('import success')
-
 
 
 if __name__ == '__main__':
