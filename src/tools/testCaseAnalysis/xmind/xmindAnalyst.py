@@ -1,7 +1,7 @@
 import zipfile
 import json
 import os
-import re
+import ctypes
 
 from src.tools.testCaseAnalysis.abstractAnalyst import AbstractAnalyst
 
@@ -39,12 +39,19 @@ class XmindAnalyst(AbstractAnalyst):
         class_stack = list([])
         if root_class is None:
             return None
+        if not XmindAnalyst.check_children(root_class):
+            return None
+        # current_point =
 
     # def
 
     @staticmethod
     def check_children(check_dict: dict) -> bool:
-        return 'children' in check_dict.keys()
+        children = check_dict.get('children')
+        if isinstance(children, dict):
+            return True
+        else:
+            return False
 
     @staticmethod
     def load_point(dict_str: str):
@@ -100,5 +107,34 @@ class XmindAnalyst(AbstractAnalyst):
 
 
 if __name__ == '__main__':
-    aa = XmindAnalyst()
-    aa.analysis('..\\..\\..\\..\\testCase', 'test1.xmind')
+    # aa = XmindAnalyst()
+    # aa.analysis('..\\..\\..\\..\\testCase', 'test1.xmind')
+    class dddd:
+
+        a = 32132112412321321
+
+        def __init__(self):
+            self.b = 62142132132532
+
+        @staticmethod
+        def static_test():
+            print('static')
+
+        @classmethod
+        def test(cls):
+            print('not static2222222222222222222222222222222222222222222222222222222222')
+
+        def test2(self):
+            print('not static1111111111111111111111111111111111111111111')
+
+
+    aa = dddd()
+    a = aa.test2
+    c = aa.test2
+    b = aa.test
+    print(id(a))
+    print(id(c))
+    print(id(b))
+    print(id(c))
+    dddd.test()
+
