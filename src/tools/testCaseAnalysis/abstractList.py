@@ -1,6 +1,6 @@
 class AbstractList:
 
-    def append(self):
+    def append(self, point_id):
         pass
 
     def copy(self):

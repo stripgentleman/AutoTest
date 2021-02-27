@@ -4,9 +4,11 @@ import os
 import ctypes
 
 from src.tools.testCaseAnalysis.abstractAnalyst import AbstractAnalyst
-
+from src.tools.testCaseAnalysis.xmind.xmind_list import XmindList
 
 class XmindAnalyst(AbstractAnalyst):
+    children_key = 'children'
+    summaries_key = 'summaries'
 
     def analysis(self, case_path, case_name):
         case_path = case_path if case_path[-1] == '\\' or case_path[-1] == '/' else case_path + '/'
@@ -36,18 +38,25 @@ class XmindAnalyst(AbstractAnalyst):
     def method_lists_from_dict(json_dict: dict):
         class_lists = list([])
         root_class = json_dict.get('rootTopic')
-        class_stack = list([])
+        one_list = XmindList()
         if root_class is None:
             return None
         if not XmindAnalyst.check_children(root_class):
             return None
-        # current_point =
+        current_point = root_class.get(XmindAnalyst.children_key)
+        while current_point is not None:
 
+        summaries = current_point.get(XmindAnalyst.summaries_key)
+
+        if summaries is not None:
+            for summary in summaries:
+                if summary.get('')
+                one_list.append_summary()
     # def
 
     @staticmethod
     def check_children(check_dict: dict) -> bool:
-        children = check_dict.get('children')
+        children = check_dict.get(XmindAnalyst.children_key)
         if isinstance(children, dict):
             return True
         else:
@@ -95,7 +104,7 @@ class XmindAnalyst(AbstractAnalyst):
 
     @staticmethod
     def get_point_from_children(dict_info: dict, point_id: str):
-        children_info = dict_info.get('children')
+        children_info = dict_info.get(XmindAnalyst.children_key)
         if children_info is None:
             return None
         point_str = XmindAnalyst.get_point_from_str(str(children_info), point_id)
