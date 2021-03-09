@@ -10,6 +10,7 @@ class XmindAnalyst(AbstractAnalyst):
     children_key = 'children'
     summaries_key = 'summaries'
     attached_key = 'attached'
+    relationships_key = 'relationships'
 
     def analysis(self, case_path, case_name):
         case_path = case_path if case_path[-1] == '\\' or case_path[-1] == '/' else case_path + '/'
@@ -48,7 +49,13 @@ class XmindAnalyst(AbstractAnalyst):
         current_index = 0
         while current_index + 1 > len(class_lists):
             class_list = class_lists.pop(current_index)
-            children = root_class.get(XmindAnalyst.children_key)
+            last_point = XmindAnalyst.get_point_from_id(dict_info=root_class, point_id=class_list[-1])
+            relationship_list = XmindAnalyst.get_relationships_list(json_dict.get(XmindAnalyst.relationships_key))
+            for relationship in relationship_list:
+
+
+            summaries = last_point.get(XmindAnalyst.summaries_key)
+            children = last_point.get(XmindAnalyst.children_key)
             for
 
 
@@ -59,6 +66,15 @@ class XmindAnalyst(AbstractAnalyst):
                 if summary.get('')
                 one_list.append_summary()
     # def
+
+    @staticmethod
+    def get_relationships_list(relationship_list:list):
+        ret_relationship_list = list([])
+        for relationship in relationship_list:
+            ret_relationship_list.append((relationship.get('end1Id'),
+                                           relationship.get('end2Id')))
+        return ret_relationship_list
+
 
     @staticmethod
     def check_children(check_dict: dict) -> bool:
@@ -109,7 +125,7 @@ class XmindAnalyst(AbstractAnalyst):
         return dict_str[left_brace_index:right_brace_index]
 
     @staticmethod
-    def get_point_from_children(dict_info: dict, point_id: str):
+    def get_point_from_id(dict_info: dict, point_id: str):
         children_info = dict_info.get(XmindAnalyst.children_key)
         if children_info is None:
             return None
