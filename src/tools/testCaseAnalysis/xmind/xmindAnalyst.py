@@ -9,6 +9,7 @@ from src.tools.testCaseAnalysis.xmind.xmind_list import XmindList
 class XmindAnalyst(AbstractAnalyst):
     children_key = 'children'
     summaries_key = 'summaries'
+    attached_key = 'attached'
 
     def analysis(self, case_path, case_name):
         case_path = case_path if case_path[-1] == '\\' or case_path[-1] == '/' else case_path + '/'
@@ -43,8 +44,13 @@ class XmindAnalyst(AbstractAnalyst):
             return None
         if not XmindAnalyst.check_children(root_class):
             return None
-        current_point = root_class.get(XmindAnalyst.children_key)
-        while current_point is not None:
+        one_list.append(root_class.get('id'))
+        current_index = 0
+        while current_index + 1 > len(class_lists):
+            class_list = class_lists.pop(current_index)
+            children = root_class.get(XmindAnalyst.children_key)
+            for
+
 
         summaries = current_point.get(XmindAnalyst.summaries_key)
 
