@@ -6,6 +6,7 @@ import ctypes
 from src.tools.testCaseAnalysis.abstractAnalyst import AbstractAnalyst
 from src.tools.testCaseAnalysis.xmind.xmind_list import XmindList
 
+
 class XmindAnalyst(AbstractAnalyst):
     children_key = 'children'
     summaries_key = 'summaries'
@@ -18,7 +19,10 @@ class XmindAnalyst(AbstractAnalyst):
         case_only_name = ''.join(case_name.split('.')[:-1])
         xmind_dict = self.get_xmind_dicts(case_path, case_only_name)[0]
         # print(str(xmind_dict))
-        print(self.get_point_from_str(str(xmind_dict), '657b1f57-2ceb-4fa0-86b6-a94bc9e2669e'))
+        # print(self.get_point_from_str(str(xmind_dict), '657b1f57-2ceb-4fa0-86b6-a94bc9e2669e'))
+        temp = self.id_lists_from_dict(xmind_dict)
+        for tt in temp:
+            print(tt.to_list())
 
     @staticmethod
     def unpack_by_zipfile(case_path, case_name, out_put=None):
@@ -37,44 +41,65 @@ class XmindAnalyst(AbstractAnalyst):
         return xmind_dicts
 
     @staticmethod
-    def method_lists_from_dict(json_dict: dict):
+    def id_lists_from_dict(json_dict: dict):
         class_lists = list([])
         root_class = json_dict.get('rootTopic')
-        one_list = XmindList()
+        root_list = XmindList()
         if root_class is None:
             return None
         if not XmindAnalyst.check_children(root_class):
             return None
-        one_list.append(root_class.get('id'))
+        root_list.append(root_class.get('id'))
+        class_lists.append(root_list)
         current_index = 0
-        while current_index + 1 > len(class_lists):
+        while current_index + 1 <= len(class_lists):
             class_list = class_lists.pop(current_index)
-            last_point = XmindAnalyst.get_point_from_id(dict_info=root_class, point_id=class_list[-1])
+            last_point = XmindAnalyst.get_point_from_id(dict_info=root_class, point_id=class_list.id_list[-1])
             relationship_list = XmindAnalyst.get_relationships_list(json_dict.get(XmindAnalyst.relationships_key))
-            for relationship in relationship_list:
+            relationship_index = 0
+            while relationship_index + 1 <= len(relationship_list):
+                if relationship_list[relationship_index][0] == last_point['id']:
+                    relationship = relationship_list.pop(relationship_index)
+                    new_class_list = class_list.build_child(relationship[1])
+                    new_class_list.summary_list = list([])
+                    class_lists.append(new_class_list)
+                else:
+                    relationship_index += 1
+                    continue
 
+            summaries = last_point.get(XmindAnalyst.summaries_key, list([]))
+            children = last_point.get(XmindAnalyst.children_key, {})
+            children_attached = children.get(XmindAnalyst.attached_key)
+            if children_attached is None:
+                if len(class_list.summary_list) > 0:
+                    class_list.merge_last_summary()
+                    class_lists.insert(current_index, class_list)
+                else:
+                    class_lists.insert(current_index, class_list)
+                    current_index += 1
+                continue
+            attached_index = 0
+            while attached_index + 1 <= len(children_attached):
+                new_id = children_attached[attached_index].get('id')
+                if new_id is not None:
+                    new_class_list = class_list.build_child(new_id)
+                    for summary in summaries:
+                        range_list = str(summary['range']).replace('(', '').replace(')', '').split(',')
+                        if int(range_list[0]) <= attached_index <= int(range_list[1]):
+                            new_class_list.append_summary(summary.get('topicId'))
+                    class_lists.append(new_class_list)
+                    attached_index += 1
+        return class_lists
 
-            summaries = last_point.get(XmindAnalyst.summaries_key)
-            children = last_point.get(XmindAnalyst.children_key)
-            for
-
-
-        summaries = current_point.get(XmindAnalyst.summaries_key)
-
-        if summaries is not None:
-            for summary in summaries:
-                if summary.get('')
-                one_list.append_summary()
-    # def
+        # def
 
     @staticmethod
-    def get_relationships_list(relationship_list:list):
+    def get_relationships_list(relationship_list: list):
         ret_relationship_list = list([])
         for relationship in relationship_list:
             ret_relationship_list.append((relationship.get('end1Id'),
-                                           relationship.get('end2Id')))
+                                          relationship.get('end2Id')))
         return ret_relationship_list
-
 
     @staticmethod
     def check_children(check_dict: dict) -> bool:
@@ -86,7 +111,7 @@ class XmindAnalyst(AbstractAnalyst):
 
     @staticmethod
     def load_point(dict_str: str):
-        return json.loads(dict_str)
+        return eval(dict_str)
 
     @staticmethod
     def get_point_from_str(dict_str: str, point_id: str) -> str:
@@ -126,10 +151,7 @@ class XmindAnalyst(AbstractAnalyst):
 
     @staticmethod
     def get_point_from_id(dict_info: dict, point_id: str):
-        children_info = dict_info.get(XmindAnalyst.children_key)
-        if children_info is None:
-            return None
-        point_str = XmindAnalyst.get_point_from_str(str(children_info), point_id)
+        point_str = XmindAnalyst.get_point_from_str(str(dict_info), point_id)
         return XmindAnalyst.load_point(point_str)
 
     @staticmethod
@@ -138,34 +160,5 @@ class XmindAnalyst(AbstractAnalyst):
 
 
 if __name__ == '__main__':
-    # aa = XmindAnalyst()
-    # aa.analysis('..\\..\\..\\..\\testCase', 'test1.xmind')
-    class dddd:
-
-        a = 32132112412321321
-
-        def __init__(self):
-            self.b = 62142132132532
-
-        @staticmethod
-        def static_test():
-            print('static')
-
-        @classmethod
-        def test(cls):
-            print('not static2222222222222222222222222222222222222222222222222222222222')
-
-        def test2(self):
-            print('not static1111111111111111111111111111111111111111111')
-
-
-    aa = dddd()
-    a = aa.test2
-    c = aa.test2
-    b = aa.test
-    print(id(a))
-    print(id(c))
-    print(id(b))
-    print(id(c))
-    dddd.test()
-
+    aa = XmindAnalyst()
+    aa.analysis('..\\..\\..\\..\\testCase', 'test1.xmind')

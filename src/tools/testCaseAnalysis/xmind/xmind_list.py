@@ -8,13 +8,18 @@ class XmindList(AbstractList):
         self.id_list = list([]) if id_list is None else id_list.copy()
 
     def copy(self):
-        return XmindList(summary_list=self.summary_list,id_list=self.id_list)
+        return XmindList(summary_list=self.summary_list, id_list=self.id_list)
 
     def append(self, point_id: str):
         self.id_list.append(point_id)
 
     def append_summary(self, point_id: str):
         self.summary_list.append(point_id)
+
+    def build_child(self, child_id: str):
+        new_child_list = XmindList(self.summary_list, self.id_list)
+        new_child_list.append(child_id)
+        return new_child_list
 
     def to_list(self) -> list:
         ret_list = self.id_list.copy()
@@ -24,6 +29,8 @@ class XmindList(AbstractList):
         del temp_summary_list
         return ret_list
 
+    def merge_last_summary(self):
+        self.id_list.append(self.summary_list.pop())
 
 if __name__ == '__main__':
     al = list([1, 2, 3, 4])
@@ -39,4 +46,4 @@ if __name__ == '__main__':
     print(b.summary_list)
     print(a.id_list)
     print(b.id_list)
-    print(a.to_list(),a.summary_list)
+    print(a.to_list(), a.summary_list)
