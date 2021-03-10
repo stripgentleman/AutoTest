@@ -20,6 +20,9 @@ class TestHandler(AbstractHandler):
         print(id(TestHandler.aa))
         print(id(asd))
 
+    @staticmethod
+    def testmethod3(*kwargs):
+        print(kwargs[0])
 
 if __name__ == '__main__':
     print('test')

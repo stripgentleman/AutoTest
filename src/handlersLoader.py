@@ -19,12 +19,17 @@ class HandlersLoader:
 
         args = list()
         for arg in arg_list:
+            print(fun_signature.parameters[arg])
+            if str(fun_signature.parameters[arg]) == '*' + arg:
+                print('1')
+            if str(fun_signature.parameters[arg]) == '**' + arg:
+                print('2')
             arg_value = arg_dict.get(arg)
             if arg_value is None:
                 arg_value = fun_signature.parameters[arg].default
                 if arg_value == inspect.Parameter.empty:
                     error_msg = ''.join([fun.__module__, '.', fun.__name__, '() ', 'get arguments : ', str(arg_dict), ', but missing required positional argument: ', arg])
-                    raise TypeError(error_msg)
+                    raise SyntaxError(error_msg)
             args.append(arg_value)
         fun(*args)
 
@@ -39,7 +44,7 @@ class HandlersLoader:
         else:
             error_msg = ''.join(['HandlersLoader.tag_call_method() get error action_assertion value : ',
                                  action_assertion, ' , it only required \'', HandlersLoader.ACTION, '\' or \'', HandlersLoader.ASSERTION, '\''])
-            raise TypeError(error_msg)
+            raise SyntaxError(error_msg)
         if load_method.get(tag) is None:
             load_method[tag] = load(tag)
         HandlersLoader.method_call(load_method[tag], args_dict)
@@ -47,7 +52,8 @@ class HandlersLoader:
 
 if __name__ == '__main__':
     # HandlersLoader.method_call(tes, {'aaa': 222, 'bbb':321321})
-    HandlersLoader.tag_call_method('action', 'test', {'param1':111, 'param2':111, 'param3':111})
-    HandlersLoader.tag_call_method('assertion', 'test', {'param1': 151, 'param2': 1771, 'param3': 121})
-    HandlersLoader.tag_call_method('action', 'test2', {'param1': 311, 'param2': 511, 'param3': 131})
-    HandlersLoader.tag_call_method('action', 'test', {'param3': 111, 'param1': 151, 'param2': 141})
+    # HandlersLoader.tag_call_method('action', 'test', {'param1':111, 'param2':111, 'param3':111})
+    # HandlersLoader.tag_call_method('assertion', 'test', {'param1': 151, 'param2': 1771, 'param3': 121})
+    # HandlersLoader.tag_call_method('action', 'test2', {'param1': 311, 'param2': 511, 'param3': 131})
+    # HandlersLoader.tag_call_method('action', 'test', {'param3': 111, 'param1': 151, 'param2': 141})
+    HandlersLoader.tag_call_method('action', 'test3', {'kwargs': 45564})

@@ -20,9 +20,14 @@ class XmindAnalyst(AbstractAnalyst):
         xmind_dict = self.get_xmind_dicts(case_path, case_only_name)[0]
         # print(str(xmind_dict))
         # print(self.get_point_from_str(str(xmind_dict), '657b1f57-2ceb-4fa0-86b6-a94bc9e2669e'))
-        temp = self.id_lists_from_dict(xmind_dict)
-        for tt in temp:
-            print(tt.to_list())
+        id_lists = self.id_lists_from_dict(xmind_dict)
+
+        for id_list in id_lists:
+            temp_list = list([])
+            for point_id in id_list.to_list():
+                c_point = XmindAnalyst.get_point_from_id(xmind_dict, point_id)
+                temp_list.append(c_point.get('title'))
+            print(temp_list)
 
     @staticmethod
     def unpack_by_zipfile(case_path, case_name, out_put=None):

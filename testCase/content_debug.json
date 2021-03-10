@@ -54,12 +54,12 @@
                   "title": "子主题 3",
                   "notes": {
                     "plain": {
-                      "content": "test"
+                      "content": "test\n213\ndsa=3"
                     },
                     "ops": {
                       "ops": [
                         {
-                          "insert": "test\n"
+                          "insert": "test\n213\ndsa=3\n"
                         }
                       ]
                     },
@@ -70,6 +70,20 @@
                             "spans": [
                               {
                                 "text": "test"
+                              }
+                            ]
+                          },
+                          {
+                            "spans": [
+                              {
+                                "text": "213"
+                              }
+                            ]
+                          },
+                          {
+                            "spans": [
+                              {
+                                "text": "dsa=3"
                               }
                             ]
                           }
