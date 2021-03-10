@@ -11,18 +11,16 @@ class TestHandler(AbstractHandler):
     @staticmethod
     def testmethod(param1, param2, param3):
         print('test111111', param1, param2, param3)
-        print(id(TestHandler.aa))
-        print(id(asd))
+
 
     @staticmethod
     def testmethod2(param1, param2, param3):
         print('test111111', param1, param2, param3)
-        print(id(TestHandler.aa))
-        print(id(asd))
+
 
     @staticmethod
-    def testmethod3(*kwargs):
-        print(kwargs[0])
+    def testmethod3(a,b=1,*kwargs):
+        print(a,b,kwargs)
 
 if __name__ == '__main__':
     print('test')

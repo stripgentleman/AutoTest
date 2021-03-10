@@ -1,7 +1,18 @@
 import zipfile
 import json
 import os
+import sys
 import ctypes
+
+# sys.path.append(os.path.dirname(
+#     os.path.dirname(
+#         os.path.dirname(
+#             os.path.dirname(
+#                 os.path.dirname(
+#                     os.path.abspath(__file__)))))))
+path = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-5])
+if path not in sys.path:
+    sys.path.append(path)
 
 from src.tools.testCaseAnalysis.abstractAnalyst import AbstractAnalyst
 from src.tools.testCaseAnalysis.xmind.xmind_list import XmindList
