@@ -24,21 +24,33 @@ class XmindAnalyst(AbstractAnalyst):
     attached_key = 'attached'
     relationships_key = 'relationships'
 
+    def __init__(self):
+        self.global_variable_dict = dict()
+        self.id_lists = list([])
+
     def analysis(self, case_path, case_name):
         case_path = case_path if case_path[-1] == '\\' or case_path[-1] == '/' else case_path + '/'
         self.unpack_by_zipfile(case_path, case_name)
         case_only_name = ''.join(case_name.split('.')[:-1])
         xmind_dict = self.get_xmind_dicts(case_path, case_only_name)[0]
-        # print(str(xmind_dict))
-        # print(self.get_point_from_str(str(xmind_dict), '657b1f57-2ceb-4fa0-86b6-a94bc9e2669e'))
-        id_lists = self.id_lists_from_dict(xmind_dict)
-
-        for id_list in id_lists:
-            temp_list = list([])
+        self.id_lists = self.id_lists_from_dict(xmind_dict)
+        ret_tag_lists = list([])
+        for id_list in self.id_lists:
+            ret_tag_list = list([])
             for point_id in id_list.to_list():
-                c_point = XmindAnalyst.get_point_from_id(xmind_dict, point_id)
-                temp_list.append(c_point.get('title'))
-            print(temp_list)
+                point = XmindAnalyst.get_point_from_id(xmind_dict, point_id)
+                title = point.get('title', '')
+
+                if title.startswith('{'):
+                    right_index = str.find(title, '}')
+                    tag_return = str.split(title[1:right_index], ':')
+                    params = XmindAnalyst.get_content_dict(point)
+                    ret_tag_list.append({'tag': tag_return[0], 'params': params, 'return': tag_return[1], 'description': title[right_index+1:]})
+                else:
+                    ret_tag_list.append({'tag': None, 'params': None, 'return': None, 'description': title})
+            if len(ret_tag_list) > 0:
+                ret_tag_lists.append(ret_tag_list)
+        return ret_tag_lists
 
     @staticmethod
     def unpack_by_zipfile(case_path, case_name, out_put=None):
@@ -171,10 +183,50 @@ class XmindAnalyst(AbstractAnalyst):
         return XmindAnalyst.load_point(point_str)
 
     @staticmethod
+    def get_content_dict(point_dict: dict) -> dict:
+        return XmindAnalyst.content_to_dict(XmindAnalyst.get_notes_content(point_dict))
+
+    @staticmethod
+    def content_to_dict(content: str) -> dict:
+        if len(content) == 0:
+            return {}
+        content_list = content.split('\n')
+        content_dict = dict()
+        for content_kv in content_list:
+            kv = content_kv.split('=')
+            if len(kv) == 2:
+                content_dict[kv[0]] = kv[1]
+            else:
+                raise SyntaxError(content.replace('\n', '\\n') + ': handler params must be \'key=value\' style')
+        return content_dict
+
+    @staticmethod
+    def get_notes_content(point_dict: dict) -> str:
+        notes = point_dict.get('notes')
+        if isinstance(notes, dict):
+            plain = notes.get('plain')
+            if isinstance(plain, dict):
+                return plain.get('content', '')
+            else:
+                return ''
+        else:
+            return ''
+
+    @staticmethod
     def import_test():
         print('import success')
+
+    @staticmethod
+    def print_id_lists(xmind_dict, id_lists):
+        for id_list in id_lists:
+            temp_list = list([])
+            for point_id in id_list.to_list():
+                c_point = XmindAnalyst.get_point_from_id(xmind_dict, point_id)
+                temp_list.append(c_point.get('title'))
+            print(temp_list)
 
 
 if __name__ == '__main__':
     aa = XmindAnalyst()
-    aa.analysis('..\\..\\..\\..\\testCase', 'test1.xmind')
+    print(aa.analysis('..\\..\\..\\..\\testCase', 'test1.xmind'))
+    # aa.content_to_dict('test\n213\ndsa=3')

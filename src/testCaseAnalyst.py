@@ -52,6 +52,7 @@ class TestCaseAnalyst:
                 analyst_method = getattr(analyst_object(), module_path[-1])
                 for case_name in self.test_case_dict[case_path][case_postfix]:
                     analysis_result = analyst_method(case_path, case_name)
+                    print(analysis_result)
 
 
 

@@ -19,7 +19,7 @@ class TestHandler(AbstractHandler):
 
 
     @staticmethod
-    def testmethod3(a,b=1,*kwargs):
+    def testmethod3(a,b=1,**kwargs):
         print(a,b,kwargs)
 
 if __name__ == '__main__':

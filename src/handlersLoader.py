@@ -1,5 +1,6 @@
 import inspect
-import os,sys
+import os
+import sys
 
 path = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-2])
 if path not in sys.path:
