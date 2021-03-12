@@ -3,7 +3,6 @@ import re
 
 from importlib import import_module
 
-
 from src.config import testCaseConfig
 
 
@@ -29,7 +28,9 @@ class TestCaseAnalyst:
     def get_case_name_dict(self):
         test_case_dict = dict()
         for case_path in self.case_path_list:
-            test_case_dict[case_path] = dict()
+            case_path = os.path.abspath(case_path)
+            if case_path not in test_case_dict:
+                test_case_dict[case_path] = dict()
             for postfix in self.postfix_list:
                 pattern = re.compile(r'(.*)(' + postfix + ')$')
                 test_case_dict[case_path][postfix] = list()
@@ -41,7 +42,9 @@ class TestCaseAnalyst:
         return test_case_dict
 
     def analysis(self):
+        ret_analysis_result = dict()
         for case_path in self.test_case_dict:
+            ret_analysis_result[case_path] = dict()
             for case_postfix in self.test_case_dict[case_path]:
                 if len(self.test_case_dict[case_path][case_postfix]) == 0:
                     continue
@@ -51,9 +54,10 @@ class TestCaseAnalyst:
                 analyst_object = getattr(analyst_module, module_path[-2])
                 analyst_method = getattr(analyst_object(), module_path[-1])
                 for case_name in self.test_case_dict[case_path][case_postfix]:
-                    analysis_result = analyst_method(case_path, case_name)
-                    print(analysis_result)
+                    ret_analysis_result[case_path][case_name] = analyst_method(case_path, case_name)
+                    # analysis_result: [[{'tag_type':...'tag': ..., 'params': ..., 'return': ..., 'description': 'xxx'},...],...]
 
+        return ret_analysis_result
 
 
 if __name__ == '__main__':
