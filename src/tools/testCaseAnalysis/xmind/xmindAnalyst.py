@@ -43,11 +43,11 @@ class XmindAnalyst(AbstractAnalyst):
 
                 if title.startswith('{'):
                     right_index = str.find(title, '}')
-                    tag_return = str.split(title[1:right_index], ':')
+                    tag_return = str.split(title[1:right_index], ';')
                     params = XmindAnalyst.get_content_dict(point)
                     ret_tag_list.append({'tag_type': tag_return[0], 'tag': tag_return[1], 'params': params, 'return': tag_return[2], 'description': title[right_index + 1:]})
                 else:
-                    ret_tag_list.append({'tag': None, 'params': None, 'return': None, 'description': title})
+                    ret_tag_list.append({'tag_type': None, 'tag': None, 'params': None, 'return': None, 'description': title})
             if len(ret_tag_list) > 0:
                 ret_tag_lists.append(ret_tag_list)
         return ret_tag_lists

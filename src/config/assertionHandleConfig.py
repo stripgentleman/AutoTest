@@ -3,6 +3,7 @@
 #############################################
 
 default_package_path = 'handlers.assertionHandlers.'
+assertion_key = 'as'
 
 as_method = {
     # 标志:方法路径

@@ -8,12 +8,12 @@ if path not in sys.path:
 
 from src.tools.handlersLoad.actionHandlersLoaders.actionHandlersLoader import ActionHandlersLoader
 from src.tools.handlersLoad.assertionHandlersLoaders.assertionHandlersLoader import AssertionHandlersLoader
-
+from src.config import actionHandleConfig,assertionHandleConfig
 
 class HandlersLoader:
 
-    ACTION = 'action'
-    ASSERTION = 'assertion'
+    ACTION = actionHandleConfig.action_key
+    ASSERTION = assertionHandleConfig.assertion_key
 
     load_action_method = dict()
     load_assertion_method = dict()
@@ -37,7 +37,7 @@ class HandlersLoader:
                     error_msg = ''.join([fun.__module__, '.', fun.__name__, '() ', 'get arguments : ', str(arg_dict), ', but missing required positional argument: ', arg])
                     raise SyntaxError(error_msg)
             # args.append(arg_value)
-        fun(**arg_dict)
+        return fun(**arg_dict)
 
     @staticmethod
     def tag_call_method(action_assertion, tag, args_dict: dict):
@@ -53,7 +53,7 @@ class HandlersLoader:
             raise SyntaxError(error_msg)
         if load_method.get(tag) is None:
             load_method[tag] = load(tag)
-        HandlersLoader.method_call(load_method[tag], args_dict)
+        return HandlersLoader.method_call(load_method[tag], args_dict)
 
 
 if __name__ == '__main__':

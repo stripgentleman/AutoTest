@@ -62,5 +62,5 @@ class TestCaseAnalyst:
 
 if __name__ == '__main__':
     a = TestCaseAnalyst()
-    print(a.get_case_name_dict())
-    a.analysis()
+    # print(a.get_case_name_dict())
+    print(a.analysis())

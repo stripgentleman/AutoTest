@@ -3,6 +3,7 @@
 #############################################
 
 default_package_path = 'handlers.actionHandlers.'
+action_key = 'ac'
 
 ac_methods = {
     # 标志:方法路径
