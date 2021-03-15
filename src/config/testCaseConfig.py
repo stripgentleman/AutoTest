@@ -16,3 +16,8 @@ test_case_postfix = [
 ignore_test_case = [
     '__init__.py'
 ]
+
+#   测试用例步骤执行完成标志key
+run_done = 'task-done'
+#   测试用例步骤执行错误标志key
+run_wrong = 'symbol-wrong'
