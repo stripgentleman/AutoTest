@@ -1,9 +1,13 @@
 #############################################
 # 测试用例配置信息
 #############################################
-#   测试用例存放路径,相对于src/testCaseAnalyst.py的路径或绝对路径
+import os
+
+base_path = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-2])
+default_path = base_path + os.path.sep + 'testCase'
+#   测试用例存放路径,绝对路径
 test_case_path = [
-    '../testCase',
+    default_path,
 ]
 
 #   测试用例文件后缀，每种后缀文件的解析方法在src/tools/testCaseAnalyst.py中映射
