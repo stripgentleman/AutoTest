@@ -15,6 +15,8 @@ class ActionHandlersLoader:
                 if ac_methods.get(temp_tag) is not None:
                     methods_dict[temp_tag] = ActionHandlersLoader.load_method(ac_methods[temp_tag])
             return methods_dict
+        elif tag not in ac_methods:
+            raise SyntaxError(f"ActionHandler {tag} is not in ac_methods, please check config.actionHandleConfig")
         else:
             return ActionHandlersLoader.load_method(ac_methods.get(tag))
 

@@ -3,9 +3,9 @@
 #############################################
 
 default_package_path = 'handlers.assertionHandlers.'
-assertion_key = 'as'
+assertion_key = 'AS'
 
-as_method = {
+as_methods = {
     # 标志:方法路径
     'test': default_package_path + 'testHandler.TestHandler.testmethod'
 }

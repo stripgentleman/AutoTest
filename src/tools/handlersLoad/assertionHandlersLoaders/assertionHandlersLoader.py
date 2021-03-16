@@ -3,19 +3,21 @@ from importlib import import_module
 import src.config.assertionHandleConfig as Config
 
 class AssertionHandlersLoader:
-    as_method = Config.as_method
+    as_methods = Config.as_methods
 
     @staticmethod
     def load(tag=None):
         methods_dict = dict()
-        as_method = AssertionHandlersLoader.as_method
+        as_methods = AssertionHandlersLoader.as_methods
         if tag is None:
-            for temp_tag in as_method:
-                if as_method.get(temp_tag) is not None:
-                    methods_dict[temp_tag] = AssertionHandlersLoader.load_method(as_method[temp_tag])
+            for temp_tag in as_methods:
+                if as_methods.get(temp_tag) is not None:
+                    methods_dict[temp_tag] = AssertionHandlersLoader.load_method(as_methods[temp_tag])
             return methods_dict
+        elif tag not in as_methods:
+            raise SyntaxError(f"AssertionHandler {tag} is not in as_methods, please check config.assertionHandleConfig")
         else:
-            return AssertionHandlersLoader.load_method(as_method.get(tag))
+            return AssertionHandlersLoader.load_method(as_methods.get(tag))
 
     @staticmethod
     def load_method(method_path: str):
