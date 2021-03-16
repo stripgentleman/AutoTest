@@ -1,6 +1,6 @@
 from importlib import import_module
 
-import src.config.assertionHandleConfig as Config
+import config.assertionHandleConfig as Config
 
 class AssertionHandlersLoader:
     as_methods = Config.as_methods

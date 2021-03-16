@@ -10,7 +10,7 @@ if path not in sys.path:
 
 from src.handlersLoader import HandlersLoader
 from src.testCaseAnalyst import TestCaseAnalyst
-from src.config import config
+from config import config
 
 
 class Driver:

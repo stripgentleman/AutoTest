@@ -8,7 +8,8 @@ if path not in sys.path:
 
 from src.tools.handlersLoad.actionHandlersLoaders.actionHandlersLoader import ActionHandlersLoader
 from src.tools.handlersLoad.assertionHandlersLoaders.assertionHandlersLoader import AssertionHandlersLoader
-from src.config import actionHandleConfig,assertionHandleConfig
+from config import assertionHandleConfig, actionHandleConfig
+
 
 class HandlersLoader:
 

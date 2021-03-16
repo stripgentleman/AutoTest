@@ -1,6 +1,6 @@
 from importlib import import_module
 
-import src.config.actionHandleConfig as Config
+import config.actionHandleConfig as Config
 
 
 class ActionHandlersLoader:
