@@ -4,7 +4,7 @@
 class AbstractAnalyst:
 
     @staticmethod
-    def json_result2method_lists(json_result:dict):
+    def json_result2method_lists(json_result: dict):
         pass
 
     @staticmethod

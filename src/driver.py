@@ -52,6 +52,11 @@ class Driver:
                                     f"\n {traceback.format_exc()}",
                                     logging.ERROR)
                                 break
+                    self.log(f"finish call chain {str(log_call_chain)}", logging.INFO)
+                self.log(f"finish testCase {case_path}{os.path.sep}{case_name}", logging.INFO)
+            self.log(f"finish path {case_path}", logging.INFO)
+
+
 
     def log(self, message, level):
         if config.log_enable:

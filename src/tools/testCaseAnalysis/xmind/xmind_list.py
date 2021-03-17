@@ -32,6 +32,7 @@ class XmindList(AbstractList):
     def merge_last_summary(self):
         self.id_list.append(self.summary_list.pop())
 
+
 if __name__ == '__main__':
     al = list([1, 2, 3, 4])
     aal = list([5, 6, 7, 8])
