@@ -64,7 +64,7 @@ class XmindAnalyst(AbstractAnalyst):
 
     @staticmethod
     def get_xmind_dicts(case_path, case_only_name):
-        with open(case_path + case_only_name + '/content.json', 'r', encoding='utf-8') as json_fp:
+        with open(case_path + case_only_name + os.path.sep + 'content.json', 'r', encoding='utf-8') as json_fp:
             xmind_dicts = json.load(fp=json_fp)
         return xmind_dicts
 
