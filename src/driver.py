@@ -25,7 +25,7 @@ class Driver:
             self.log(f"begin path {case_path}", logging.INFO)
             self.case_G_param[case_path] = dict()
             for case_name in self.case_analyst_result[case_path]:
-                self.log(f"begin testCase {case_path}", logging.INFO)
+                self.log(f"begin testCase {case_path}{os.path.sep}{case_name}", logging.INFO)
                 self.case_G_param[case_path][case_name] = dict()
                 for handler_call_list in self.case_analyst_result[case_path][case_name]:
                     log_call_chain = list([])
@@ -44,10 +44,10 @@ class Driver:
                             try:
                                 self.case_G_param[case_path][case_name][handler_call['return']] = \
                                     HandlersLoader.tag_call_method(handler_call['tag_type'], handler_call['tag'], handler_call['params'])
-                                self.log(f"{handler_call['tag_type']} - {handler_call['tag']} run success , params:{handler_call['params']}", logging.DEBUG)
+                                self.log(f"{handler_call['tag_type']} - {handler_call['tag']} run SUCCESS , params:{handler_call['params']}", logging.DEBUG)
                             except Exception as error:
                                 self.log(
-                                    f"has a error in call chain {str(log_call_chain)}:"
+                                    f"has a ERROR in call chain {str(log_call_chain)}:"
                                     f"\n\t{handler_call['tag_type']} - {handler_call['tag']} , params:{handler_call['params']}, traceback: "
                                     f"\n {traceback.format_exc()}",
                                     logging.ERROR)
