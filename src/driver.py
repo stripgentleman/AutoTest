@@ -56,8 +56,6 @@ class Driver:
                 self.log(f"finish testCase {case_path}{os.path.sep}{case_name}", logging.INFO)
             self.log(f"finish path {case_path}", logging.INFO)
 
-
-
     def log(self, message, level):
         if config.log_enable:
             if level == logging.ERROR:
@@ -88,4 +86,3 @@ class Driver:
 if __name__ == '__main__':
     start = Driver()
     start.run_all_handler()
-

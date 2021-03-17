@@ -29,11 +29,11 @@ class XmindAnalyst(AbstractAnalyst):
         self.id_lists = list([])
 
     def analysis(self, case_path, case_name):
-        case_path = case_path if case_path[-1] == '\\' or case_path[-1] == '/' else case_path + '/'
+        case_path = case_path if case_path[-1] == os.path.sep else case_path + os.path.sep
         self.unpack_by_zipfile(case_path, case_name)
         case_only_name = ''.join(case_name.split('.')[:-1])
         xmind_dict = self.get_xmind_dicts(case_path, case_only_name)[0]
-        self.id_lists = self.id_lists_from_dict(xmind_dict)
+        self.id_lists = self.id_lists_from_dict(xmind_dict, case_path, case_name)
         ret_tag_lists = list([])
         for id_list in self.id_lists:
             ret_tag_list = list([])
@@ -69,7 +69,7 @@ class XmindAnalyst(AbstractAnalyst):
         return xmind_dicts
 
     @staticmethod
-    def id_lists_from_dict(json_dict: dict):
+    def id_lists_from_dict(json_dict: dict, case_path, case_name):
         class_lists = list([])
         root_class = json_dict.get('rootTopic')
         root_list = XmindList()
@@ -87,6 +87,9 @@ class XmindAnalyst(AbstractAnalyst):
             relationship_index = 0
             while relationship_index + 1 <= len(relationship_list):
                 if relationship_list[relationship_index][0] == last_point['id']:
+                    if relationship_list[relationship_index][1] in class_list.id_list:
+                        loop_point = XmindAnalyst.get_point_from_id(root_class, relationship_list[relationship_index][1])
+                        raise SyntaxError(f"has a loop in relationship \"{last_point['title']}\" to \"{loop_point['title']}\" in {case_path}{case_name}")
                     relationship = relationship_list.pop(relationship_index)
                     new_class_list = class_list.build_child(relationship[1])
                     new_class_list.summary_list = list([])
