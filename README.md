@@ -11,8 +11,8 @@
    
    tag名：config/actionHandleConfig.ac_methods和config/assertionHandleConfig.as_methods中注册的tag名
    
-   参数：执行handler的参数使用key=value的形式
+   参数：执行handler的参数，使用key=value的形式
    
-   主题描述：对该主题的描述，对执行无影响，用例说明
+   主题描述：对该主题的描述，用例说明，对执行无影响。
  
  内置xmind测试用例解析器，可把xmind文件解析为函数调用链并自动执行。
