@@ -7,8 +7,8 @@
 
    {AC;tag名;return}主题描述 解释如下：
    
-   AC：handler类型，默认类型有AC、AS，在actionHandleConfig.action_key和assertionHandleConfig.assertion_key设
-   
+   AC：handler类型，默认类型有AC、AS，在actionHandleConfig.action_key和assertionHandleConfig.assertion_key设置
+
    tag名：config/actionHandleConfig.ac_methods和config/assertionHandleConfig.as_methods中注册的tag名
    
    return：设置返回值为用例文件内的全局变量，可被覆盖（目前只实现了字符串变量的全局化）
