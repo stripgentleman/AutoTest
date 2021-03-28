@@ -5,6 +5,7 @@ import os
 
 base_path = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-2])
 default_path = base_path + os.path.sep + 'testCase'
+
 #   测试用例存放路径,绝对路径
 test_case_path = [
     default_path,

@@ -1,13 +1,16 @@
 from importlib import import_module
 
 import config.actionHandleConfig as Config
+from src.tools.handlersLoad import util
 
 
 class ActionHandlersLoader:
+    others_methods_path = Config.ac_methods_path
     ac_methods = Config.ac_methods
 
     @staticmethod
     def load(tag=None):
+        util.insert_methods_path(ActionHandlersLoader.others_methods_path)
         methods_dict = dict()
         ac_methods = ActionHandlersLoader.ac_methods
         if tag is None:

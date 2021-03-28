@@ -1,12 +1,16 @@
 from importlib import import_module
 
 import config.assertionHandleConfig as Config
+from src.tools.handlersLoad import util
+
 
 class AssertionHandlersLoader:
+    others_methods_path = Config.as_methods_path
     as_methods = Config.as_methods
 
     @staticmethod
     def load(tag=None):
+        util.insert_methods_path(AssertionHandlersLoader.others_methods_path)
         methods_dict = dict()
         as_methods = AssertionHandlersLoader.as_methods
         if tag is None:
