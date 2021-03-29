@@ -1,5 +1,6 @@
 from handlers.abstractHandler import AbstractHandler
 from handlers.actionHandlers.paramtest import asd
+from src.tools.handlersLoad.util import HandlerDecorators
 
 
 class TestHandler(AbstractHandler):
@@ -15,6 +16,7 @@ class TestHandler(AbstractHandler):
 
 
     @staticmethod
+    @HandlerDecorators.error
     def testmethod2(param1, param2, param3):
         print('test2222', param1, param2, param3)
 

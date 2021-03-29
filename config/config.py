@@ -4,7 +4,7 @@ import logging
 base_path = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-2])
 
 ##############################
-# log相关配置
+# 用例执行的log相关配置
 ##############################
 running_log_path = base_path + os.path.sep + 'testCase' + os.path.sep + 'testCaseRunningLog.log'
 log_enable = True
