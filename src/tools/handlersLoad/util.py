@@ -27,4 +27,9 @@ class HandlerDecorators:
 
     @staticmethod
     def loop(method, times:int, ite):
-        pass
+        def loop_method(**kwargs):
+
+            for current_param in ite:
+                HandlerDecorators.caseRunLog(f'handler {method.__name__} is looping by decorator, params are {current_param}', logging.DEBUG)
+
+

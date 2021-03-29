@@ -21,6 +21,17 @@ class Driver:
         self.logger = CaseRunLog()
         self.log = self.logger.log
 
+    # handler_call like {
+    # 'tag_type': None,
+    # 'tag': None,
+    # 'params': None,
+    # 'return': None,
+    # 'description': '分支主题 1',
+    # 'property':{
+    #   'Decorators':'...',
+    #   ['loop_params':'...',]
+    #   }
+    # }
     def run_all_handler(self):
         for case_path in self.case_analyst_result:
             self.log(f"begin path {case_path}", logging.INFO)
@@ -34,7 +45,6 @@ class Driver:
                         log_call_chain.append(handler_call['description'])
                     self.log(f"begin call chain {str(log_call_chain)}", logging.INFO)
                     for handler_call in handler_call_list:
-                        # handler_call like {'tag_type': None, 'tag': None, 'params': None, 'return': None, 'description': '分支主题 1'}
                         if handler_call['tag'] is not None:
                             # print(handler_call['tag'])
                             for param in handler_call['params']:
