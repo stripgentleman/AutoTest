@@ -21,16 +21,12 @@ class Driver:
         self.logger = CaseRunLog()
         self.log = self.logger.log
 
-    # handler_call like {
-    # 'tag_type': None,
-    # 'tag': None,
-    # 'params': None,
-    # 'return': None,
-    # 'description': '分支主题 1',
-    # 'property':{
-    #   'Decorators':'...',
-    #   ['loop_params':'...',]
-    #   }
+    # handler_call :{
+    # 'tag_type': ...,
+    # 'tag': ...,
+    # 'params': ...,
+    # 'return': ...,
+    # 'description': '...',
     # }
     def run_all_handler(self):
         for case_path in self.case_analyst_result:
@@ -55,9 +51,10 @@ class Driver:
                                     else:
                                         handler_call['params'][param] = self.case_G_param[case_path][case_name][g_param]
                             try:
+                                self.log(f"{handler_call['tag_type']} - {handler_call['tag']} start, params:{handler_call['params']}", logging.DEBUG)
                                 self.case_G_param[case_path][case_name][handler_call['return']] = \
                                     HandlersLoader.tag_call_method(handler_call['tag_type'], handler_call['tag'], handler_call['params'])
-                                self.log(f"{handler_call['tag_type']} - {handler_call['tag']} run SUCCESS , params:{handler_call['params']}", logging.DEBUG)
+                                self.log(f"{handler_call['tag_type']} - {handler_call['tag']} finish, params:{handler_call['params']}", logging.DEBUG)
                             except Exception as error:
                                 self.log(
                                     f"has a ERROR in call chain {str(log_call_chain)}:"

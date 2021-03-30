@@ -26,6 +26,8 @@ class CaseRunLog(object):
                 self.logger.fatal(message)
             if level == logging.DEBUG:
                 self.logger.debug(message)
+            if level == logging.NOTSET:
+                self.logger.log(logging.NOTSET, message)
 
     @classmethod
     def init_logger(cls):
